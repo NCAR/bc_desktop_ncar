@@ -1,2 +1,19 @@
 # Export the module function if it exists
 [[ $(type -t module) == "function" ]] && export -f module
+
+export XDG_RUNTIME_DIR=${HOME}/.vnc/xdg-$PBS_JOBID
+export XDG_SESSION_ID=
+export PATH=/usr/local/bin:/usr/bin:/bin:/opt/pbs/bin
+export TVNC_VGL=1
+export TVNC_WM=startplasma-x11
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+
+module restore >& /dev/null
+
+# Make sure CSH shell will initalize in Konsole
+export loginsh=1
+unset CSHRCREAD
+
+# Create storage and clean up startup script if exists
+mkdir -p $XDG_RUNTIME_DIR
+rm -f ${HOME}/.vnc/xstartup.turbovnc
