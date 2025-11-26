@@ -1,0 +1,44 @@
+---
+cluster: "casper"
+
+form:
+  - bc_vnc_idle
+  - account
+  - bc_num_hours
+  - bc_num_slots
+  - node_type
+  - gpu_type
+  - queue
+  - bc_vnc_resolution
+  - bc_email_on_started
+
+attributes:
+  bc_vnc_idle: 0
+  bc_vnc_resolution:
+    required: true
+  node_type: null
+  account:
+    label: "Account"
+    widget: select
+    help: "Select the account to charge for this job."
+    options:
+      <%- CustomAccounts.accounts.each do |account| %>
+      - "<%= account.strip %>"
+    <%- end %>
+  queue:
+    label: "Queue"
+    widget: select
+    options:
+      <%- CustomQueues.queues.each do |queue| %>
+      - "<%= queue.strip %>"
+    <%- end %>
+    cacheable: false
+  gpu_type:
+    widget: "select"
+    label: "GPU type"
+    required: true
+    value: "vis"
+    options:
+      - ["Any", "vis"]
+      - ["GP100", "gp100"]
+      - ["L40", "l40"]

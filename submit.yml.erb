@@ -2,6 +2,8 @@
 batch_connect:
   template: vnc
 script:
+  queue_name: <%= queue %>
+  accounting_id: <%= account %>
   native:
     - "-l"
     - "select=1:ncpus=<%= bc_num_slots.blank? ? 1 : bc_num_slots.to_i %>:mem=20GB:ngpus=1:gpu_type=<%= gpu_type %>"
